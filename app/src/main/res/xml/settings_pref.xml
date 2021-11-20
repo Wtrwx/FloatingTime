@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings">
+
+        <Preference
+            android:key="floating_window"
+            android:title="@string/floatingwindow_title"
+            android:summary="@string/floatingwindow_summary"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/about">
+
+        <PreferenceScreen
+            android:title="@string/author_title"
+            android:summary="@string/author_summary">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Wtrwx" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

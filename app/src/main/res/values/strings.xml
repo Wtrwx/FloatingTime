@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FloatingTime</string>
+    <string name="settings">Settings</string>
+    <string name="floatingwindow_title">Enable floating window</string>
+    <string name="floatingwindow_summary">long click the floating window to disable it.</string>
+    <string name="about">About</string>
+    <string name="author_title">维他入我心(Wtrwx)</string>
+    <string name="author_summary">A Naive Android Developer</string>
+    <string name="nopermission_error">No permission, please allow!</string>
+</resources>

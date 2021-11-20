@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.wtrwx.floatingtime"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "0.1"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'org.kie.modules:org-apache-commons-net:6.5.0.Final'
+    testImplementation 'junit:junit:4.12'
+
+}
