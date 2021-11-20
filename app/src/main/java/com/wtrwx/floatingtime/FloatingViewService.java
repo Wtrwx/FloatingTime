@@ -2,6 +2,7 @@ package com.wtrwx.floatingtime;
 
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,7 +46,7 @@ public class FloatingViewService extends Service {
         layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         layoutParams.width = 500;
-        layoutParams.height = 100;
+        layoutParams.height = 128;
         layoutParams.x = 300;
         layoutParams.y = 300;
         updateTimeData();
@@ -62,10 +66,14 @@ public class FloatingViewService extends Service {
     private void showFloatingWindow() {
         if (Settings.canDrawOverlays(this)) {
             timeView = new TextView(getApplicationContext());
-
+            timeView.setLongClickable(true);
+            timeView.setBackgroundColor(Color.WHITE);
+            timeView.setTextSize(32);
+            timeView.setWidth(500);
+            timeView.setHeight(128);
+            timeView.setGravity(1);
             windowManager.addView(timeView, layoutParams);
             timeView.setOnTouchListener(new FloatingOnTouchListener());
-            timeView.setLongClickable(true);
             timeView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -79,14 +87,17 @@ public class FloatingViewService extends Service {
     private void updateTimeData() {
         final Timer timer = new Timer();
         TimerTask task;
-        final Handler handler1 = new Handler() {
+        final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 // TODO Auto-generated method stub
                 super.handleMessage(msg);
                 Bundle data = msg.getData();
                 String val = data.getString("value");
-                timeView.setText(val);
+                SpannableString ss = new SpannableString(val);
+                ss.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new ForegroundColorSpan(Color.RED), 10, 10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                timeView.setText(ss);
                 super.handleMessage(msg);
             }
         };
@@ -107,7 +118,7 @@ public class FloatingViewService extends Service {
                 data.putString("value", TimeUtils.unix2String(TimeStamp));
                 msg.setData(data);
                 msg.what = 1;
-                handler1.sendMessage(msg);
+                handler.sendMessage(msg);
             }
         };
 

@@ -10,22 +10,16 @@ import java.util.Date;
 
 public class TimeUtils {
 
-    private static final String TEN_STRING_DATE = "yyyy-MM-dd HH:mm:ss";
-    private static final String THIRTEEN_STRING_DATE = "yyyy-MM-dd HH:mm:ss.S";
-
+    private static final String THIRTEEN_STRING_DATE = "HH:mm:ss.S";
     /**
-     * 10或13位时间戳转 String 格式(yyyy-MM-dd HH:mm:ss)日期
+     * 13位时间戳转 String 格式(yyyy-MM-dd HH:mm:ss)日期
      *
      * @param timestamp
      * @return
      */
     public static String unix2String(String timestamp) {
         String date;
-        if (timestamp.length() == 13) {
-            date = new SimpleDateFormat(THIRTEEN_STRING_DATE).format(Long.parseLong(timestamp));
-        } else {
-            date = new SimpleDateFormat(TEN_STRING_DATE).format(Long.parseLong(timestamp) * 1000);
-        }
+        date = new SimpleDateFormat(THIRTEEN_STRING_DATE).format(Long.parseLong(timestamp));
         return date;
     }
 
